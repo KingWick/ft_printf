@@ -1,34 +1,42 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-void	ft_putchar(char c)
+void my_put_padress (void const *p)
 {
-	write(1,&c,1);
+   unsigned long adr;
+   char const *base;
+   char res[9];
+   int i;
+ 
+   adr = (unsigned long) p;
+   base = "0123456789abcdef";
+   i = 8;
+   while ((adr / 16) > 0 || i >= 8)
+   {
+      res[i] = base[(adr % 16)];
+	  printf("%ld\n", adr % 16);
+	 // printf("res[%d] = %c\n", i, res[i]);
+      adr /= 16;
+      i--;
+   }
+   res[i] = base[(adr % 16)];
+   putchar ('0');
+   putchar ('x');
+   while (i < 9)
+   {
+      putchar (res[i]);
+      i++;
+   }
 }
-
-void	ft_putnbr_u(int nb)
+ 
+int main (void)
 {
-	unsigned int	nbr;
-
-	nbr = (unsigned int)nb;
-	if (nbr < 0)
-	{
-		ft_putchar('-', 0);
-		nbr = nbr * -1;
-	}
-	if (nbr > 9)
-	{
-		ft_putnbr_u(nbr / 10);
-		ft_putchar(nbr % 10 + 48, 0);
-	}
-	if (nbr >= 0 && nbr <= 9)
-	{
-		ft_putchar(nbr + 48, 0);
-	}
-}
-
-int main()
-{
-	ft_putnbr_u(21);
+   char const *p = "hello";
+ 
+   printf ("%p\n", (void *) p);
+   my_put_padress (p);
+ 
+   return 0;
 }
