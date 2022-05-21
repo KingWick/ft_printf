@@ -16,14 +16,12 @@ void my_put_padress (void const *p)
    while ((adr / 16) > 0 || i >= 8)
    {
       res[i] = base[(adr % 16)];
-	  printf("%ld\n", adr % 16);
-	 // printf("res[%d] = %c\n", i, res[i]);
       adr /= 16;
       i--;
    }
    res[i] = base[(adr % 16)];
-   putchar ('0');
-   putchar ('x');
+   ft_putchar ('0');
+   ft_putchar ('x');
    while (i < 9)
    {
       putchar (res[i]);
@@ -33,10 +31,10 @@ void my_put_padress (void const *p)
  
 int main (void)
 {
-   char const *p = "hello";
+   char const *q = "hello";
  
-   printf ("%p\n", (void *) p);
-   my_put_padress (p);
+   printf ("%p\n", q);
+   my_put_padress (q);
  
    return 0;
 }
