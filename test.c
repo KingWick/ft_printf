@@ -3,7 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void my_put_padress (void const *p)
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void ft_put_adress (void const *p)
 {
    unsigned long adr;
    char const *base;
@@ -24,17 +29,15 @@ void my_put_padress (void const *p)
    ft_putchar ('x');
    while (i < 9)
    {
-      putchar (res[i]);
+      ft_putchar(res[i]);
       i++;
    }
 }
- 
+
+
 int main (void)
 {
-   char const *q = "hello";
- 
-   printf ("%p\n", q);
-   my_put_padress (q);
- 
-   return 0;
+	int a = 25;
+	printf("%x", a);
+    return 0;
 }
