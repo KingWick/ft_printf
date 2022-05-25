@@ -3,41 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	ft_putchar(char c)
+int ft_putchar(char c)
 {
-	write(1, &c, 1);
+   write(1,&c,1);
+   return 0;
 }
 
-void ft_put_adress (void const *p)
+int    ft_putnbr_base(unsigned long long nbr, char *base)
 {
-   unsigned long adr;
-   char const *base;
-   char res[9];
-   int i;
- 
-   adr = (unsigned long) p;
-   base = "0123456789abcdef";
-   i = 8;
-   while ((adr / 16) > 0 || i >= 8)
-   {
-      res[i] = base[(adr % 16)];
-      adr /= 16;
-      i--;
-   }
-   res[i] = base[(adr % 16)];
-   ft_putchar ('0');
-   ft_putchar ('x');
-   while (i < 9)
-   {
-      ft_putchar(res[i]);
-      i++;
-   }
+    int                    count;
+
+    count = 0;
+    if (nbr >= 16)
+        count = count + ft_putnbr_base(nbr / 16, base);
+    write(1, "0x", 2);  
+   count = count + ft_putchar(base[nbr % 16]);
+    return (count);
 }
-
-
-int main (void)
+int main()
 {
-	int a = 25;
-	printf("%x", a);
-    return 0;
+   int d = 4598886;
+   ft_putnbr_base(d,"0123456789abcdef");
+   //printf("\n%x", d);
 }
