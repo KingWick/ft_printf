@@ -6,7 +6,7 @@
 /*   By: akram <akram@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 16:32:27 by akdjebal          #+#    #+#             */
-/*   Updated: 2022/05/25 20:23:52 by akram            ###   ########.fr       */
+/*   Updated: 2022/05/26 01:09:45 by akram            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,16 @@ int    ft_putnbr_base_ptr(unsigned long long nbr, char *base)
    return (count);
 }
 
-int    ft_putnbr_base_xX(unsigned long long nbr, char *base, int maj)
+int    ft_putnbr_base_xX(unsigned long long nbr, char *base)
 {
-   int                    count;
+   int  count;
    
    count = 0;
-   if (maj == 0)
-   {
-      if (nbr >= 16)  
-         count = count + ft_putnbr_base_xX(nbr / 16, base, 0);
-      count = count + ft_putchar(base[nbr % 16]);  
-      return (count);
-   }
-   else
-   {
-      if (nbr >= 16)  
-         count = count + ft_putnbr_base_xX(nbr / 16, base, 0);
-      count = count + ft_putchar(base[nbr % 16]);  
-      return (count);
-   }
+   if (nbr >= 16)  
+       count += ft_putnbr_base_xX(nbr / 16, base);
+   count += ft_putchar(base[nbr % 16]);  
+   
+   return (count);
 }  
 
 int	ft_putstr(char *str)
@@ -139,9 +130,9 @@ int ft_printf(const char *str, ...)
 			if (str[i] == 'i')
 				count += ft_putnbr(va_arg(lst, int)); 
 			if (str[i] == 'x')
-				count += ft_putnbr_base_xX(va_arg(lst, unsigned long long), "0123456789abcdef", 0);
+				count += ft_putnbr_base_xX(va_arg(lst, unsigned long long), "0123456789abcdef");
          if (str[i] == 'X')
-				count += ft_putnbr_base_xX(va_arg(lst, unsigned long long), "0123456789ABCDEF", 1);
+				count += ft_putnbr_base_xX(va_arg(lst, unsigned long long), "0123456789ABCDEF");
          if (str[i] == '%')
             count += ft_putchar('%');
 		}
@@ -156,14 +147,15 @@ int ft_printf(const char *str, ...)
 
 int main()
 {
-   //char str[] = "ojdslkgj";
-   //ft_printf("%x\n", d);
-   //printf("%x\n", d);
-   printf("%d\n", ft_printf("salut\n"));
-   printf("%d\n", printf("salut\n"));
+   char a = 97;
+   int  d = 93;
+   int  c = 43;
+   int  u = -95;
+   int  i = -109;
+   int  v = 75636;
+   int  w = 2144;
+   printf("%c--%d--%s--%p--%u--%i--%x--%X--%%", a, d, "Salut toi", &c, u, i, v, w);
+   //printf("%d\n", ft_printf("salut\n"));
+   //printf("%d\n", printf("salut\n"));
+   // gerer le nill 
 }
-// 	char b[] = "kalife";
-   
-// 	ft_printf("%p\n", b);
-// 	printf("%p\n", b);
-// 
