@@ -6,38 +6,36 @@
 #    By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/07 15:21:24 by akdjebal          #+#    #+#              #
-#    Updated: 2022/05/13 15:07:17 by akdjebal         ###   ########.fr        #
+#    Updated: 2022/05/26 22:41:12 by akdjebal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = 	ft_printf.c \
-		ft_util_printf.c \
+NAME = libftprintf.a
 
-NAME = libftprintf.a 
+SRCS = ft_printf.c
 
-LIBFT_DIRECTION = libft/
+OBJS = ${SRCS:.c=.o}
 
-OBJETS = $(SRCS:.c=.o)
+CC = gcc
 
-all : $(NAME)
+CC_FLAGS = -Wall -Wextra -Werror
 
-$(NAME) : ${OBJETS}
-	@$(MAKE) -C $(LIBFT_DIRECTION)
-	@ echo "Compilation Libft OK"
-	@ ar rc $(NAME) $^
-	@ ranlib $(NAME)
-	@ echo "Compilation OK"
+RM = rm -f
 
-clean: 
-	@ rm -rf ${OBJETS} 
-	$(MAKE) clean -C $(LIBFT_DIRECTION)
-	@ echo "Clean Printf OK"
+$(NAME): ${OBJS}
+		ar rcs ${NAME} ${OBJS}
+		
+.c.o:
+		${CC} ${CC_FLAGS} -c $< -o ${<:.c=.o}
 
-fclean: 
-	@ rm -rf $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIRECTION)
-	@ echo "fclean Printf OK"
+all:	${NAME}
 
-re: fclean all 
+clean:
+		${RM} ${OBJS}
+
+fclean:	clean
+		${RM} ${NAME}
+
+re:		fclean all
 
 .PHONY: all clean fclean re 
