@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akram <akram@student.42.fr>                +#+  +:+       +#+        */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 16:32:27 by akdjebal          #+#    #+#             */
-/*   Updated: 2022/05/26 15:37:13 by akram            ###   ########.fr       */
+/*   Updated: 2022/05/26 17:03:22 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int    ft_putnbr_base_ptr(unsigned long long nbr, char *base)
 
    count = 0;
    if (nbr >= 16)
-      count += ft_putnbr_base_ptr(nbr / 16, base);
-   count += ft_putchar(base[nbr % 16]);
+	   count += ft_putnbr_base_ptr(nbr / 16, base);
+	count += ft_putchar(base[nbr % 16]);
    return (count);
 }
 
@@ -65,16 +65,11 @@ int   ft_putnbr_u(unsigned int nb)
    int count;
 
    count = 0;
-   if (nb < 0)
-   {
-      count += ft_putchar('-');
-      nb = -nb;
-   }
-   if (nb >= 0 && nb <= 9)
+   if (nb <= 9)
    {
       count += ft_putchar(nb + '0');
    }
-   if (nb >= 10)
+   else if (nb >= 10)
    {
       count += ft_putnbr_u(nb / 10);
       count += ft_putnbr_u(nb % 10);
@@ -125,25 +120,24 @@ int ft_printf(const char *str, ...)
 			if (str[i] == 's')
 				count += ft_putstr(va_arg(lst, char *));
 			if (str[i] == 'p')
-         {
-            count += write(1,"0x", 2);
+			{
+				count += write(1,"0x", 2);
 				count += ft_putnbr_base_ptr(va_arg(lst, unsigned long long), "0123456789abcdef");
-         }
+			}
 			if (str[i] == 'u')
 				count += ft_putnbr_u(va_arg(lst, unsigned int));
 			if (str[i] == 'i')
 				count += ft_putnbr(va_arg(lst, int)); 
 			if (str[i] == 'x')
 				count += ft_putnbr_base_xX(va_arg(lst, unsigned int), "0123456789abcdef");
-         if (str[i] == 'X')
+            if (str[i] == 'X')
 				count += ft_putnbr_base_xX(va_arg(lst, unsigned int), "0123456789ABCDEF");
-         if (str[i] == '%')
+            if (str[i] == '%')
             count += ft_putchar('%');
 		}
 		else 
          count += ft_putchar(str[i]);
-      i++;
-						
+      i++;					
 	}
 	va_end (lst);
    return (count);
@@ -151,19 +145,19 @@ int ft_printf(const char *str, ...)
 
 int main()
 {
-   // char a = 97;
-   // int  d = 93;
-   // int  c = 43;
-   // int  u = -95;
-   // int  i = -109;
-   // int  v = 7563436;
-   // int  w = 2144;
-   char *str = NULL;
+   char a = 97;
+   int  d = 93;
+   int  c = 43;
+   int  u = -95;
+   int  i = -109;
+   int  v = 7563436;
+   int  w = 2144;
+   //char *str;
    
-   printf("%s\n", str);
-   ft_printf("%s\n", str);
-   //printf("%d\n", printf("%c--%d--%s--%p--%u--%i--%x--%X\n", a, d, "Salut toi", &c, u, i, v, w));
-   //ft_printf("%d\n", ft_printf("%c--%d--%s--%p--%u--%i--%x--%X\n", a, d, "Salut toi", &c, u, i, v, w));
+    printf("%p\n", NULL);
+  	ft_printf("%p\n", NULL);
+   printf("%d\n", printf("%c--%d--%s--%p--%u--%i--%x--%X\n", a, d, "Salut toi", &c, u, i, v, w));
+   ft_printf("%d\n", ft_printf("%c--%d--%s--%p--%u--%i--%x--%X\n", a, d, "Salut toi", &c, u, i, v, w));
    //printf("%d\n", ft_printf("salut\n"));
    //printf("%d\n", printf("salut\n"));
    // gerer le nill 
